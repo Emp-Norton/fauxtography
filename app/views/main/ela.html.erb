@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Manipulation / Error Level Analysis Tool</title>
+<meta name=description content="Detect Image Manipulation" />
+<link href='//fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/stylesheets/application.css" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, user-scalable=yes,maximum-scale=1.0" />
+<meta property="og:image" content="\media\elaexample.jpg" />
+</head>
+<body>
+    <header>
+    <h1 style="color: white"><a href="/main/index">Faux-tography</h1></a>
+</header>
+<div class=title>
+<h1 class=title>Image Error Level Analyzer</h1>
+</div>
+<div id="description">
+    <div class=new-software>
+        <h2>ELA Tool</h2>
+        <p>This is a simplified tool for Error Level Analysis, a forensic technique to highlight potential digital manipulations to an image. This tool is based on the methology created by <a href="http://www.wired.com/images_blogs/threatlevel/files/bh-usa-07-krawetz.pdf">Neal Krawetz</a> and work by <a href="https://github.com/jwagner"> Jonas Wagner. </a> </p>
+        <a href="https://fotoforensics.com/tutorial-ela.php"><img style="max-width: 100%;" src="\media\contrast.ela.touchup.jpg"></a> <!-- need own tuts -->
+        <a href="https://fotoforensics.com/tutorial-ela.php" class=link-button>Click the example image above for a forensics tutorial.</a>
+        <a href="http://tineye.com"></a>
+    </div>
+    <p>Tips for analysis: Look for areas of similarity in the image which reveal high contrast in the ELA results. <br> <br> For example: in the image above, notice the darkened blotchy area above the rear wheel - the original image has no contrast here, yet the ELA image does. This is an indication of modification.</p>
+<h2>Drag &amp; Drop an image onto this page to analyze it.</h2>
+<input type=file name=file accept="image/*">
+</div>
+
+<div id="results">
+    <form>
+        <input type=file name=file accept="image/*">
+        <label>Quality<div><input name=quality type="range" min=10 max=100 step=1 value=88 /><span class=value></span></div></label>
+        <label>Error scale<div><input name=scale type="range" min=1 max=50 step=1 value=10 /><span class=value></span></div></label>
+    </form>
+    <!--<canvas id="compressedOverlay" style="width: 50%"></canvas> # this is the hover-over effect. I don't think it's useful, but def demo it -->
+    <canvas id="source" style="width: 50%"></canvas>
+    <canvas id="compressed" style="width: 50%"></canvas>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/scripts/html5slider.js"></script>
+<script src="/scripts/ela.js"></script>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js" async defer></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js" async defer></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5205069-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

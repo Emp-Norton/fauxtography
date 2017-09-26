@@ -1,0 +1,130 @@
+
+/* #311320 = Brn 
+   #D9BE5C = yel-beige 
+   #4D7F93 = light-sky 
+   #FBFDFE = brt-gry
+   #B3396E = salmon */
+html, body { width: 100%; height: 100%; margin: 0;} 
+body {
+  background-color: #4D7F93;  
+  font-family: helvetica, sans-serif;
+}
+
+div.title {
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    opacity: 1.0
+}
+
+h1.title { display: inline; }
+
+.rotateimg40 {
+  -webkit-transform:rotate(40deg);
+  -moz-transform: rotate(40deg);
+  -ms-transform: rotate(40deg);
+  -o-transform: rotate(40deg);
+  transform: rotate(40deg);
+}
+
+h1, p.more {
+  color: #D9BE5C;
+  font-family: Michroma, sans-serif;
+  opacity: 2.0
+}
+
+header h1, p.more {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+}
+
+p.more { 
+  top: 8px;
+  left: 150px;
+}
+
+}
+h1 a, p.more a {
+  color: white;
+  text-decoration: none;
+}
+a {
+    color: white;
+}
+noscript {
+  color: white;
+}
+
+label {
+  color: white;
+  display: block;
+  margin: 16px 0;
+}
+
+input[type=range] {
+    width: 600px;
+    height: 21px;
+    display: inline-block;
+}
+.value:before { content: ' '; }
+.value:after { content: ' '; }
+.value {
+    line-height: 21px;
+    font-size: 15px;
+    vertical-align: top;
+}
+
+canvas { display: block; }
+
+#description {
+    width: 750px;
+    margin: 120px auto;
+    color: white;
+    background-color: #333;
+    padding: 32px;
+    font-size: 14px;
+}
+
+body:-moz-dragover #description, body:-webkit-dragover #description, body:dragover #description {
+    background-color: #444;
+}
+
+#compressedOverlay {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.0;
+    transition: opacity 2s ease-in-out;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+}
+
+#source {
+    clear: both;
+    float: left;
+}
+
+#results {
+    margin: 100px 15px;
+    display: none;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 80%;
+}
+.new-software h2 {
+    margin-top: 0;
+}
+.new-software p {
+    margin-top: 0;
+}
+.new-software {
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #666;
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: #444;
+}
+

@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/stylesheets/application.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, user-scalable=yes,maximum-scale=1.0" />
+<script type="text/javascript" src="/exif/exif.js"></script>
+
+</head>
+<body>
+   <header>
+  <h1><a href="/main/index/">Faux-tography</a></h1>
+</header>
+<div class=title>
+  <h1 class=title>EXIF Metadata Analyzer</h1>
+<div class="container" style="text-align: center">
+  <p style="margin-top: 50px; font-size: 30px; color: white;">Upload a local file to read EXIF metadata.</p>
+  <br/>
+  <input id="file-input" type="file" />
+  <br/><br/>
+
+  <p style="color: white; font-size: 20px;">Load the file to check the image metadata (information recorded by the camera at the time the photo was taken). If any is found or if any particular modification software is identified, we will notify you below. If no metadata can be extracted, the image is almost certainly not the original and is highly suspect. In either case, we recommend you check out our Error Level Analysis (ELA) page, which can highlight specific modifications. </p>
+  <br/><br/>
+
+<div>
+  <div id="result"></div>
+    <p id="results"> <span id="res"></span> </p>
+  </div>
+
+  <br>
+  <br>
+  <div class="container" id="step-buttons" style="position: relative; align-self: center; align-items: center;">
+    <button class="button" style="display: inline-block; background-color: grey; height: 85px; width: 250px; font-size: 25px; border: 2px solid grey; border-radius: 15px;"><a href="/main/ela" style="color: white">Take me to Error Level Analysis</a></button>
+    <button class="button" style="margin-left: 10%; display: inline-block; background-color: grey; height: 85px; width: 250px; font-size: 25px; border: 2px solid grey; border-radius: 15px;"><a href="https://tineye.com" style="color: white">Take me to Reverse Image Search</a></button>
+    <p style="margin-top: 35px;"> <a href="https://en.wikipedia.org/wiki/Exif"> What is EXIF? </p></a>
+    
+  </div>
+</div>
+
+<script>
+
+function convert_date_time(date_time_stamp){
+  modified_date = date_time_stamp.split(" ")[0].split(":").reverse()
+  day = modified_date[0], month = modified_date[1] 
+  modified_date[1] = day, modified_date[0] = month 
+  modified_time = date_time_stamp.split(" ")[1]
+  modified = [modified_time, modified_date.join("/")].join(" - ")
+  return modified
+}
+
+document.getElementById("file-input").onchange = function(e) {
+    EXIF.getData(e.target.files[0], function() {
+        var res_array = EXIF.pretty(this)
+        document.getElementById("res").innerHTML = res_array
+        var prettier_list = document.getElementById('res').innerHTML.split(" : ")
+        if (document.getElementById('res').innerHTML.indexOf('DateTimeOriginal') != -1){ // Original save timestamp found. 
+            prettier_list.forEach(function(cell, idx){
+              if (cell.includes("DateTimeOriginal")){
+                 date_original = prettier_list[idx+1].split("\n")[0]  // use regex in these cases to find form-matches for datetime stamp?
+              }
+              if (cell.split("\n")[1]==("DateTime")){ // resave found. 
+                 date_modified = prettier_list[idx+1].split("\n")[0]
+              }
+            }) 
+            if (date_original != date_modified){ // EXIF found difference between original save and most recent. Fraudulent. 
+              cleaned_original = convert_date_time(date_original)
+              cleaned_modified = convert_date_time(date_modified)
+              result.innerHTML = `This image was likely modified. This image was resaved after the original capture. Resaved: ${cleaned_modified} after original save on: ${cleaned_original}.` 
+              result.style.color = "yellow"
+              result.style.fontSize = "xx-large"
+
+            } else { // data found, but original date matches most recent save date. No digital signature found from modification_product_arrays.
+               result.innerHTML = "This image appears to be clean. There is no evidence of modification."
+               result.style.color = "green"
+               result.style.fontSize = "xx-large"
+            }
+           } 
+        
+        var products = ["Adobe", "GIMP", "Google"] // TODO: fill out this array of mod-prods 
+        products.forEach(function(product){
+        if (document.getElementById("res").innerHTML.indexOf(product) != -1 ){
+            result.innerHTML = `Definitely modified. Detected signature of a(n) ${product} product.`
+            result.style.color = "red"
+            result.style.fontSize = "xx-large"
+            
+        }
+    })
+        if (res_array.length < 1){ // EXIF script couldn't extract data, thus result array is empty. 
+            result.innerHTML = "Cannot find any metadata on this image. This is somewhat suspicious and suggests that this either isn't the original or has been modified."
+            result.style.color = "yellow"
+            result.style.fontSize = "xx-large"
+          }
+    });
+}
+
+</script>
+
+
+
+</body>
+</html>
